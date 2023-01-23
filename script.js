@@ -87,6 +87,7 @@ class Comment{
             user_photo.setAttribute('src',`${element.user.image.webp}`)
             const user_name=document.createElement('span')
             user_name.innerHTML=`${element.user.username}`
+            user_name.setAttribute('id','user_name')
             const user_date=document.createElement('span')
             user_date.innerHTML=`${element.createdAt}`
             const user_comment=document.createElement('p')
@@ -99,14 +100,18 @@ class Comment{
             btn_plus.innerHTML=`+`
             const count_span=document.createElement('span')
             count_span.innerHTML=`${element.score}`
-            const btn_less=document.createElement('button')
-            btn_less.innerHTML=`-`
-            count.append(btn_plus,count_span,btn_less)
+            const btn_minus=document.createElement('button')
+            btn_minus.innerHTML=`-`
+            count.append(btn_plus,count_span,btn_minus)
 
             const reply=document.createElement('div')
             reply.classList.add('reply')
             const btn_reply=document.createElement('button')
-            btn_reply.innerHTML=`Reply`
+            const img_reply=document.createElement('img')
+            img_reply.setAttribute('src','../images/icon-reply.svg')
+            const text_reply=document.createElement('span')
+            text_reply.textContent=`Reply`
+            btn_reply.append(img_reply,text_reply)
             reply.append(btn_reply)
 
             content.append(comment,count,reply)
