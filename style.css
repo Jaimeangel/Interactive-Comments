@@ -3,12 +3,23 @@
     padding: 0;
     box-sizing: border-box;
 }
-/* :root{
+:root{
+    --Moderate_Blue: hsl(238, 40%, 52%);
+    --Soft_Red: hsl(358, 79%, 66%);
+    --Light_Grayish_Blue: hsl(239, 57%, 85%);
+    --Pale_Red: hsl(357, 100%, 86%);
 
-} */
+    --Dark_Blue: hsl(212, 24%, 26%);
+    --Grayish_Blue: hsl(211, 10%, 45%);
+    --Light_Gray: hsl(223, 19%, 93%);
+    --Very_Light_Gray: hsl(228, 33%, 97%);
+    --White: hsl(0, 0%, 100%);
+}
 body{
+    font-size: 16px;
     padding: 1em;
     border: 1px solid black;
+    font-family: 'Rubik', sans-serif;
 }
 .content{
     display: flex;
@@ -39,7 +50,7 @@ body{
 
 .comment p{
     flex: 1 1 100%;
-    margin:0.3em 0;
+    margin:0.5em 0;
     font-size: 1.1em;
 }
 .content .count{
