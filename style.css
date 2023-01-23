@@ -1,0 +1,81 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* :root{
+
+} */
+body{
+    padding: 1em;
+    border: 1px solid black;
+}
+.content{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+    padding: 0.7em;
+    border: 1px solid black;
+    border-radius: 0.5em;
+}
+.content .comment{
+    flex: 1 1 100%;
+}
+.comment{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 0.5em;
+}
+.comment img{
+    width: 0.1rem;
+    flex: 1 1 14%;
+}
+.comment span{
+    flex: 1 1 43%;
+    display: flex;
+    align-items: center;
+    padding-left: 1em;
+}
+
+.comment p{
+    flex: 1 1 100%;
+    margin:0.3em 0;
+    font-size: 1.1em;
+}
+.content .count{
+    flex: 1 1 50%;
+    display: flex;
+}
+.content .count button{
+    background-color: gray;
+    border: none;
+    font-size: 1.2rem;
+    padding: 0.2em 0.7em;
+}
+.content .count button:first-child{
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+}
+.content .count button:last-child{
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+.content .count span{
+    font-size: 1.2rem;
+    background-color: gray;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+.content .reply{
+    flex: 1 1 50%;
+    text-align: right;
+    align-self: center;
+}
+
+.content .reply button{
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    background: white;
+}
