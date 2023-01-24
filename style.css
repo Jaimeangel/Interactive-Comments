@@ -56,7 +56,7 @@ body{
 .comment p{
     flex: 1 1 100%;
     margin:0.5em 0;
-    font-size: 1.1em;
+    font-size: 1.1rem;
 }
 .content .count{
     flex: 1 1 50%;
@@ -103,4 +103,62 @@ body{
 }
 .content .reply button>*{
     margin-left: 0.7em;
+}
+
+@media screen and (min-width:550px){
+    body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .content{
+        max-width: 850px;
+        position: relative;
+        padding: 1em;
+    }
+    .content .comment{
+        order: 2;
+        flex: 1 1 85%;
+    }
+    .comment img{
+        flex: 1 1 5%;
+    }
+    /* .comment span{
+       
+    } */
+    .comment p{
+        font-size: 1.3rem;
+        line-height: 1.1em;
+    }
+    .content .count{
+        order: 1;
+        flex: 1 1 7%;
+        flex-direction: column;
+        justify-content: flex-start;
+        margin-right: 1em;
+        max-width: 50px;
+    }
+    .content .count button{
+        font-size: 1.6rem;
+        padding: 0.6em 0.7em;
+    }
+    .content .count button:first-child{
+        border-bottom-left-radius: 0em;
+        border-top-right-radius: 0.5em;
+    }
+    .content .count button:last-child{
+        border-top-right-radius: 0em;
+        border-bottom-left-radius: 0.5em;
+    }
+    .content .count span{
+        justify-content: center;
+    }
+    .content .reply{
+        order: 3;
+        flex: 1 1 10%;
+        position: absolute;
+        right: 2em;
+        top: 2.4em;
+    }
+    
 }
