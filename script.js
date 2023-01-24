@@ -76,47 +76,52 @@ class Comment{
         this.nodo=mainNodo;
     }
 
+    CommentComponent(element){
+      const content=document.createElement('div')
+      content.classList.add('content')
+
+      const comment=document.createElement('div')
+      comment.classList.add('comment')
+      const user_photo=document.createElement('img')
+      user_photo.setAttribute('src',`${element.user.image.webp}`)
+      const user_name=document.createElement('span')
+      user_name.innerHTML=`${element.user.username}`
+      user_name.setAttribute('id','user_name')
+      const user_date=document.createElement('span')
+      user_date.innerHTML=`${element.createdAt}`
+      const user_comment=document.createElement('p')
+      user_comment.textContent=`${element.content}`
+      comment.append(user_photo,user_name,user_date,user_comment)
+      
+      const count=document.createElement('div')
+      count.classList.add('count')
+      const btn_plus=document.createElement('button')
+      btn_plus.innerHTML=`+`
+      const count_span=document.createElement('span')
+      count_span.innerHTML=`${element.score}`
+      const btn_minus=document.createElement('button')
+      btn_minus.innerHTML=`-`
+      count.append(btn_plus,count_span,btn_minus)
+
+      const reply=document.createElement('div')
+      reply.classList.add('reply')
+      const btn_reply=document.createElement('button')
+      const img_reply=document.createElement('img')
+      img_reply.setAttribute('src','../images/icon-reply.svg')
+      const text_reply=document.createElement('span')
+      text_reply.textContent=`Reply`
+      btn_reply.append(img_reply,text_reply)
+      reply.append(btn_reply)
+
+      content.append(comment,count,reply)
+      return content
+    }
+
     MainComment(){
-        this.data.comments.forEach(element => {
-            const content=document.createElement('div')
-            content.classList.add('content')
-
-            const comment=document.createElement('div')
-            comment.classList.add('comment')
-            const user_photo=document.createElement('img')
-            user_photo.setAttribute('src',`${element.user.image.webp}`)
-            const user_name=document.createElement('span')
-            user_name.innerHTML=`${element.user.username}`
-            user_name.setAttribute('id','user_name')
-            const user_date=document.createElement('span')
-            user_date.innerHTML=`${element.createdAt}`
-            const user_comment=document.createElement('p')
-            user_comment.textContent=`${element.content}`
-            comment.append(user_photo,user_name,user_date,user_comment)
-            
-            const count=document.createElement('div')
-            count.classList.add('count')
-            const btn_plus=document.createElement('button')
-            btn_plus.innerHTML=`+`
-            const count_span=document.createElement('span')
-            count_span.innerHTML=`${element.score}`
-            const btn_minus=document.createElement('button')
-            btn_minus.innerHTML=`-`
-            count.append(btn_plus,count_span,btn_minus)
-
-            const reply=document.createElement('div')
-            reply.classList.add('reply')
-            const btn_reply=document.createElement('button')
-            const img_reply=document.createElement('img')
-            img_reply.setAttribute('src','../images/icon-reply.svg')
-            const text_reply=document.createElement('span')
-            text_reply.textContent=`Reply`
-            btn_reply.append(img_reply,text_reply)
-            reply.append(btn_reply)
-
-            content.append(comment,count,reply)
-            this.nodo.append(content)
-        });
+      this.data.comments.forEach(element=>{
+        const comment_componenet=this.CommentComponent(element)
+        this.nodo.append(comment_componenet)
+      });
     }
 }
 
