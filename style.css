@@ -137,11 +137,11 @@ body{
         flex-direction: column;
         justify-content: flex-start;
         margin-right: 1em;
-        max-width: 50px;
+        max-width: 45px;
     }
     .content .count button{
         font-size: 1.6rem;
-        padding: 0.6em 0.7em;
+        padding: 0.5em 0.7em;
     }
     .content .count button:first-child{
         border-bottom-left-radius: 0em;
