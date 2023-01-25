@@ -84,8 +84,8 @@ class Comment{
     CommentComponent(element,type){
       const content=document.createElement('div')
       content.classList.add('content')
-     
       content.setAttribute('data-type',`${type}`)
+      
       /* Comment */
       const comment=document.createElement('div')
       comment.classList.add('comment')
@@ -142,15 +142,17 @@ class Comment{
         const comment_componenet=this.CommentComponent(element,'comment')
         wrapComment.append(comment_componenet)
 
-        const wrap_reply=document.createElement('div')
-        wrap_reply.classList.add('reply')
+        if(element.replies.length!=0){
+          const wrap_reply=document.createElement('div')
+          wrap_reply.classList.add('reply_content')
+  
+          element.replies?.forEach(element=>{
+            const reply_componenet=this.CommentComponent(element,'reply')
+            wrap_reply.append(reply_componenet)
+          })
+          wrapComment.append(wrap_reply)
+        }
 
-        element.replies?.forEach(element=>{
-          const reply_componenet=this.CommentComponent(element,'reply')
-          wrap_reply.append(reply_componenet)
-        })
-
-        wrapComment.append(wrap_reply)
 
         this.nodo.append(wrapComment)
       });

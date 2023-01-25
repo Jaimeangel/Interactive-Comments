@@ -35,6 +35,10 @@ body{
     border-radius: 0.5em;
     background-color: var(--White);
 }
+.reply_content{
+    border-left: 1px solid black;
+    padding-left: 1em;
+}
 .content .comment{
     flex: 1 1 100%;
 }
@@ -47,7 +51,7 @@ body{
 }
 .comment img{
     width: 0.1rem;
-    flex: 1 1 14%;
+    flex: 1 1 11%;
 }
 .comment span{
     flex: 1 1 43%;
@@ -116,6 +120,14 @@ body{
         max-width: 850px;
         position: relative;
         padding: 1em;
+    }
+    .reply_content{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        max-width: 800px;
+        padding-left: 2em;
+        margin-left: 3em;
     }
     .content .comment{
         order: 2;
