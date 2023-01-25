@@ -132,10 +132,8 @@ class Comment{
       return content
     }
 
-    MainComment(){
-      this.data.comments.forEach(element=>{
-
-        const wrapComment=document.createElement('div')
+    WrapCommentSection(element){
+      const wrapComment=document.createElement('div')
         wrapComment.classList.add('wrap')
         wrapComment.setAttribute('data-id',`${element.id}`)
 
@@ -155,6 +153,11 @@ class Comment{
 
 
         this.nodo.append(wrapComment)
+    }
+
+    MainComment(){
+      this.data.comments.forEach(element=>{
+        this.WrapCommentSection(element)
       });
     }
 }
