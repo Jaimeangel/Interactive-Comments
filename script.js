@@ -76,10 +76,17 @@ class Comment{
         this.nodo=mainNodo;
     }
 
-    CommentComponent(element){
+    Counter(e,id){
+      console.log(e.target.innerText)
+      console.log(id)
+    }
+
+    CommentComponent(element,type){
       const content=document.createElement('div')
       content.classList.add('content')
-
+     
+      content.setAttribute('data-type',`${type}`)
+      /* Comment */
       const comment=document.createElement('div')
       comment.classList.add('comment')
       const user_photo=document.createElement('img')
@@ -92,17 +99,25 @@ class Comment{
       const user_comment=document.createElement('p')
       user_comment.textContent=`${element.content}`
       comment.append(user_photo,user_name,user_date,user_comment)
-      
+      /* Count */
       const count=document.createElement('div')
       count.classList.add('count')
       const btn_plus=document.createElement('button')
       btn_plus.innerHTML=`+`
+
+      btn_plus.onclick=(event)=>this.Counter(event,element.id)
+
       const count_span=document.createElement('span')
       count_span.innerHTML=`${element.score}`
+
       const btn_minus=document.createElement('button')
       btn_minus.innerHTML=`-`
+
+      btn_minus.onclick=(event)=>this.Counter(event,element.id)
+
       count.append(btn_plus,count_span,btn_minus)
 
+      /* Reply */
       const reply=document.createElement('div')
       reply.classList.add('reply')
       const btn_reply=document.createElement('button')
@@ -119,8 +134,25 @@ class Comment{
 
     MainComment(){
       this.data.comments.forEach(element=>{
-        const comment_componenet=this.CommentComponent(element)
-        this.nodo.append(comment_componenet)
+
+        const wrapComment=document.createElement('div')
+        wrapComment.classList.add('wrap')
+        wrapComment.setAttribute('data-id',`${element.id}`)
+
+        const comment_componenet=this.CommentComponent(element,'comment')
+        wrapComment.append(comment_componenet)
+
+        const wrap_reply=document.createElement('div')
+        wrap_reply.classList.add('reply')
+
+        element.replies?.forEach(element=>{
+          const reply_componenet=this.CommentComponent(element,'reply')
+          wrap_reply.append(reply_componenet)
+        })
+
+        wrapComment.append(wrap_reply)
+
+        this.nodo.append(wrapComment)
       });
     }
 }
