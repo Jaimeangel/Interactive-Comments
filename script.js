@@ -77,8 +77,47 @@ class Comment{
     }
 
     Counter(e,id){
-      console.log(e.target.innerText)
-      console.log(id)
+      const counter=e.target.parentElement.querySelector('.counter');
+      const type_target=e.target.parentElement.parentElement.dataset.type;
+      let id_parent_comment=0;
+
+      if(type_target==='replies'){
+        id_parent_comment=parseInt(e.target.parentElement.parentElement.parentElement.parentElement.dataset.id);
+        
+        this.data.comments.every(element=>{
+          if(element.id===id_parent_comment){
+            element.replies.every(reply=>{
+              if(reply.id===id){
+                if(e.target.innerText==='+'){
+                  reply.score=reply.score+1
+                  counter.innerText=`${reply.score}`
+                }else if(e.target.innerText==='-'){
+                  reply.score=reply.score-1
+                  counter.innerText=`${reply.score}`
+                }
+                return false
+              }
+              return true;
+            })
+            return false;
+          }
+          return true;
+        })
+      }else{
+        this.data.comments.every(element=>{
+          if(element.id===id){
+            if(e.target.innerText==='+'){
+              element.score=element.score+1
+              counter.innerText=`${element.score}`
+            }else if(e.target.innerText==='-'){
+              element.score=element.score-1
+              counter.innerText=`${element.score}`
+            }
+            return false
+          }
+          return true;
+        })
+      }
     }
 
     CommentComponent(element,type){
@@ -108,6 +147,7 @@ class Comment{
       btn_plus.onclick=(event)=>this.Counter(event,element.id)
 
       const count_span=document.createElement('span')
+      count_span.classList.add('counter')
       count_span.innerHTML=`${element.score}`
 
       const btn_minus=document.createElement('button')
@@ -137,7 +177,7 @@ class Comment{
         wrapComment.classList.add('wrap')
         wrapComment.setAttribute('data-id',`${element.id}`)
 
-        const comment_componenet=this.CommentComponent(element,'comment')
+        const comment_componenet=this.CommentComponent(element,'comments')
         wrapComment.append(comment_componenet)
 
         if(element.replies.length!=0){
@@ -145,7 +185,7 @@ class Comment{
           wrap_reply.classList.add('reply_content')
   
           element.replies?.forEach(element=>{
-            const reply_componenet=this.CommentComponent(element,'reply')
+            const reply_componenet=this.CommentComponent(element,'replies')
             wrap_reply.append(reply_componenet)
           })
           wrapComment.append(wrap_reply)
