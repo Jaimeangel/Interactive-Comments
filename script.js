@@ -92,7 +92,7 @@ class Comment{
                   reply.score=reply.score+1
                   counter.innerText=`${reply.score}`
                 }else if(e.target.innerText==='-'){
-                  if(element.score>0){
+                  if(reply.score>0){
                     reply.score=reply.score-1
                     counter.innerText=`${reply.score}`
                   }
