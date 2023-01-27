@@ -36,7 +36,7 @@ body{
     background-color: var(--White);
 }
 .reply_content{
-    border-left: 1px solid black;
+    border-left: 1px solid var(--Light_Grayish_Blue);
     padding-left: 1em;
 }
 .content .comment{

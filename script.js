@@ -79,7 +79,7 @@ class Comment{
     Counter(e,id){
       const counter=e.target.parentElement.querySelector('.counter');
       const type_target=e.target.parentElement.parentElement.dataset.type;
-      let id_parent_comment=0;
+      let id_parent_comment;
 
       if(type_target==='replies'){
         id_parent_comment=parseInt(e.target.parentElement.parentElement.parentElement.parentElement.dataset.id);
@@ -92,8 +92,10 @@ class Comment{
                   reply.score=reply.score+1
                   counter.innerText=`${reply.score}`
                 }else if(e.target.innerText==='-'){
-                  reply.score=reply.score-1
-                  counter.innerText=`${reply.score}`
+                  if(element.score>0){
+                    reply.score=reply.score-1
+                    counter.innerText=`${reply.score}`
+                  }
                 }
                 return false
               }
@@ -110,8 +112,10 @@ class Comment{
               element.score=element.score+1
               counter.innerText=`${element.score}`
             }else if(e.target.innerText==='-'){
-              element.score=element.score-1
-              counter.innerText=`${element.score}`
+              if(element.score>0){
+                element.score=element.score-1
+                counter.innerText=`${element.score}`
+              }
             }
             return false
           }
