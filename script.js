@@ -36,6 +36,7 @@ let info={
         "replies": [
           {
             "id": 3,
+            "parentId":2,
             "content": "If you're still new, I'd recommend focusing on the fundamentals of HTML, CSS, and JS before considering React. It's very tempting to jump ahead but lay a solid foundation first.",
             "createdAt": "1 week ago",
             "score": 4,
@@ -50,6 +51,7 @@ let info={
           },
           {
             "id": 4,
+            "parentId":2,
             "content": "I couldn't agree more with this. Everything moves so fast and it always seems like everyone knows the newest library/framework. But the fundamentals are what stay constant.",
             "createdAt": "2 days ago",
             "score": 2,
@@ -76,16 +78,14 @@ class Comment{
         this.nodo=mainNodo;
     }
 
-    Counter(e,id){
+    Counter(e,id,type,parent_id){
       const counter=e.target.parentElement.querySelector('.counter');
-      const type_target=e.target.parentElement.parentElement.dataset.type;
-      let id_parent_comment;
 
-      if(type_target==='replies'){
-        id_parent_comment=parseInt(e.target.parentElement.parentElement.parentElement.parentElement.dataset.id);
+      if(type==='replies'){
+        const main_comment_id=parent_id;
         
         this.data.comments.every(element=>{
-          if(element.id===id_parent_comment){
+          if(element.id===main_comment_id){
             element.replies.every(reply=>{
               if(reply.id===id){
                 if(e.target.innerText==='+'){
@@ -124,6 +124,10 @@ class Comment{
       }
     }
 
+    ReplyComment(e,id){
+      alert('Aqui replicando comentarios')
+    }
+
     CommentComponent(element,type){
       const content=document.createElement('div')
       content.classList.add('content')
@@ -148,7 +152,7 @@ class Comment{
       const btn_plus=document.createElement('button')
       btn_plus.innerHTML=`+`
 
-      btn_plus.onclick=(event)=>this.Counter(event,element.id)
+      btn_plus.onclick=(event)=>this.Counter(event,element.id,type,element.parentId)
 
       const count_span=document.createElement('span')
       count_span.classList.add('counter')
@@ -157,7 +161,7 @@ class Comment{
       const btn_minus=document.createElement('button')
       btn_minus.innerHTML=`-`
 
-      btn_minus.onclick=(event)=>this.Counter(event,element.id)
+      btn_minus.onclick=(event)=>this.Counter(event,element.id,type,element.parentId)
 
       count.append(btn_plus,count_span,btn_minus)
 
@@ -165,6 +169,7 @@ class Comment{
       const reply=document.createElement('div')
       reply.classList.add('reply')
       const btn_reply=document.createElement('button')
+      btn_reply.onclick=(e)=>this.ReplyComment(e,element.id)
       const img_reply=document.createElement('img')
       img_reply.setAttribute('src','../images/icon-reply.svg')
       const text_reply=document.createElement('span')
@@ -173,7 +178,7 @@ class Comment{
       reply.append(btn_reply)
 
       content.append(comment,count,reply)
-      return content
+      return content;
     }
 
     WrapCommentSection(element){
