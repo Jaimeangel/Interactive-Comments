@@ -82,10 +82,8 @@ class Comment{
       const counter=e.target.parentElement.querySelector('.counter');
 
       if(type==='replies'){
-        const main_comment_id=parent_id;
-        
         this.data.comments.every(element=>{
-          if(element.id===main_comment_id){
+          if(element.id===parent_id){
             element.replies.every(reply=>{
               if(reply.id===id){
                 if(e.target.innerText==='+'){
