@@ -205,7 +205,12 @@ class Comment{
       const user_date=document.createElement('span')
       user_date.innerHTML=`${element.createdAt}`
       const user_comment=document.createElement('p')
-      user_comment.textContent=`${element.content}`
+      if(type==='replies'){
+        user_comment.textContent+=`@${element.replyingTo} `
+        user_comment.textContent+=`${element.content}`
+      }else{
+        user_comment.textContent=`${element.content}`
+      }
       comment.append(user_photo,user_name,user_date,user_comment)
       /* Count */
       const count=document.createElement('div')
