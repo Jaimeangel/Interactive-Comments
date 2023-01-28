@@ -122,8 +122,36 @@ class Comment{
       }
     }
 
-    ReplyComment(e,id){
-      alert('Aqui replicando comentarios')
+    ReplyComment(e,id,type,parent_id){
+      const comments=document.querySelectorAll('.wrap')
+      for (let index = 0; index < comments.length; index++) {
+        const element = comments[index];
+        if(parseInt(element.dataset.id)===id){
+          const content=document.createElement('div')
+          content.classList.add('content')
+
+          const comment=document.createElement('div')
+          comment.classList.add('textReply')
+          const comment_text=document.createElement('textarea')
+          comment.append(comment_text)
+
+          const user_img=document.createElement('div')
+          user_img.classList.add('currentUser')
+          const img_user=document.createElement('img')
+          img_user.setAttribute('src',`${this.data.currentUser.image.png}`)
+          user_img.append(img_user)
+
+          const btn_reply=document.createElement('div')
+          btn_reply.classList.add('btnReply')
+          const reply_btn=document.createElement('button')
+          reply_btn.textContent=`REPLY`
+          btn_reply.append(reply_btn)
+
+          content.append(comment,user_img,btn_reply)
+
+          element.firstChild.insertAdjacentElement('afterend',content)
+        }
+      }
     }
 
     CommentComponent(element,type){
@@ -166,8 +194,10 @@ class Comment{
       /* Reply */
       const reply=document.createElement('div')
       reply.classList.add('reply')
+
       const btn_reply=document.createElement('button')
-      btn_reply.onclick=(e)=>this.ReplyComment(e,element.id)
+      btn_reply.onclick=(e)=>this.ReplyComment(e,element.id,type,element.parentId)
+
       const img_reply=document.createElement('img')
       img_reply.setAttribute('src','../images/icon-reply.svg')
       const text_reply=document.createElement('span')

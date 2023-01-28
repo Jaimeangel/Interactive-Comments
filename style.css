@@ -115,6 +115,39 @@ body{
 .content .reply button>*{
     margin-left: 0.7em;
 }
+.content .textReply{
+    flex: 1 1 100%;
+}
+.content .textReply textarea{
+    width: 100%;
+    min-height: 6em;
+    resize: none;
+    font-size: 1.1rem;
+    padding:0.7em;
+    margin-bottom: 0.8em;
+    border-radius: 0.5em;
+    color: var(--Grayish_Blue);
+    font-weight: 400;
+}
+.content .currentUser{
+    flex: 1 1 50%;
+}
+.content .currentUser img{
+    width: 2.5em;
+}
+.content .btnReply{
+    flex: 1 1 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.content .btnReply button{
+    padding: 1em 1.5em;
+    border-radius: 0.5em;
+    border: none;
+    color: var(--White);
+    background-color: var(--Moderate_Blue);
+}
 
 @media screen and (min-width:550px){
     .content{
