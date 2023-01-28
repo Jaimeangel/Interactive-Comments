@@ -28,6 +28,7 @@ body{
     justify-content: center;
 }
 .content{
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 1em;
@@ -128,6 +129,7 @@ body{
     border-radius: 0.5em;
     color: var(--Grayish_Blue);
     font-weight: 400;
+    font-family: 'Rubik', sans-serif;
 }
 .content .currentUser{
     flex: 1 1 50%;
@@ -150,8 +152,12 @@ body{
 }
 
 @media screen and (min-width:550px){
-    .content{
+    .wrap{
         max-width: 850px;
+        margin: auto;
+    }
+    .content{
+        width: 100%;
         position: relative;
         padding: 1em;
     }
@@ -207,6 +213,28 @@ body{
         position: absolute;
         right: 2em;
         top: 1.75em;
+    }
+    .content .textReply{
+        order: 2;
+        flex: 1 1 70%;
+        padding: 0em 0.4em;
+    }
+    .content .textReply textarea{
+        font-size: 1.3rem;
+        line-height: 1.1em;
+        min-height: 5em;
+    }
+    .content .currentUser{
+        order: 1;
+        flex: 1 1 2%;
+    }
+    .content .btnReply{
+        order: 3;
+        flex: 1 1 10%;
+        align-items: flex-start;
+    }
+    .content .btnReply button{
+        padding: 1.1em 26%;
     }
     
 }
