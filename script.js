@@ -123,9 +123,16 @@ class Comment{
     }
 
     ReplyComment(e,id,type,parent_id){
-      const comments=document.querySelectorAll('.wrap')
+      let comments;
+      if(type==='replies'){
+        comments=document.querySelectorAll(`[data-id='${parent_id}'] .reply_content .content`)
+      }else{
+        comments=document.querySelectorAll('.wrap')
+      }
       for (let index = 0; index < comments.length; index++) {
         const element = comments[index];
+        console.log(element)
+        console.log(element.firstChild)
         if(parseInt(element.dataset.id)===id){
           const content=document.createElement('div')
           content.classList.add('content')
@@ -148,8 +155,12 @@ class Comment{
           btn_reply.append(reply_btn)
 
           content.append(comment,user_img,btn_reply)
-
+          if(type==='replies'){
+            element.insertAdjacentElement('afterend',content)
+            break
+          }
           element.firstChild.insertAdjacentElement('afterend',content)
+          break
         }
       }
     }
@@ -158,6 +169,7 @@ class Comment{
       const content=document.createElement('div')
       content.classList.add('content')
       content.setAttribute('data-type',`${type}`)
+      content.setAttribute('data-id',`${element.id}`)
       
       /* Comment */
       const comment=document.createElement('div')
