@@ -82,7 +82,31 @@ class Comment{
       const counter=e.target.parentElement.querySelector('.counter');
 
       if(type==='replies'){
-        this.data.comments.every(element=>{
+        const main_comments=this.data.comments;
+        for (let i = 0; i < main_comments.length; i++) {
+          const comment=main_comments[i];
+          if(comment.id===parent_id){
+            const replys=comment.replies;
+            for(let j = 0; j < replys.length; j++) {
+              const reply = replys[j];
+              if(reply.id===id){
+                if(e.target.innerText==='+'){
+                  reply.score=reply.score+1
+                  counter.innerText=`${reply.score}`
+                }else if(e.target.innerText==='-'){
+                  if(reply.score>0){
+                    reply.score=reply.score-1
+                    counter.innerText=`${reply.score}`
+                  }
+                }
+                break
+              }
+            }
+            break
+          }
+          
+        }
+/*         this.data.comments.every(element=>{
           if(element.id===parent_id){
             element.replies.every(reply=>{
               if(reply.id===id){
@@ -102,9 +126,11 @@ class Comment{
             return false;
           }
           return true;
-        })
+        }) */
       }else{
-        this.data.comments.every(element=>{
+        const main_comments=this.data.comments;
+        for (let i = 0; i < main_comments.length; i++) {
+          const element = main_comments[i];
           if(element.id===id){
             if(e.target.innerText==='+'){
               element.score=element.score+1
@@ -115,10 +141,9 @@ class Comment{
                 counter.innerText=`${element.score}`
               }
             }
-            return false
+            break
           }
-          return true;
-        })
+        }
       }
     }
 
@@ -131,8 +156,6 @@ class Comment{
       }
       for (let index = 0; index < comments.length; index++) {
         const element = comments[index];
-        console.log(element)
-        console.log(element.firstChild)
         if(parseInt(element.dataset.id)===id){
           const content=document.createElement('div')
           content.classList.add('content')
