@@ -153,7 +153,7 @@ class Comment{
       .substring(1);
     }
 
-    NewReplyComment(elmt,text){
+    NewReplySaveData(elmt,text){
       const new_reply={
         "id": this.randonId(),
         "parentId":elmt.parentId,
@@ -179,7 +179,7 @@ class Comment{
       }
     }
 
-    ReplyComment(e,type,elementData){
+    ReplyCommentSection(e,type,elementData){
       let comments;
       const parent_id=elementData.parentId;
       const id=elementData.id;
@@ -208,9 +208,8 @@ class Comment{
           const btn_reply=document.createElement('div')
           btn_reply.classList.add('btnReply')
           const reply_btn=document.createElement('button')
-
-          const contenido_text=comment_text.value;
-          reply_btn.onclick=()=>this.NewReplyComment(elementData,comment_text)
+          
+          reply_btn.onclick=()=>this.NewReplySaveData(elementData,comment_text)
 
           reply_btn.textContent=`REPLY`
           btn_reply.append(reply_btn)
@@ -272,7 +271,7 @@ class Comment{
       reply.classList.add('reply')
 
       const btn_reply=document.createElement('button')
-      btn_reply.onclick=(e)=>this.ReplyComment(e,type,element)
+      btn_reply.onclick=(e)=>this.ReplyCommentSection(e,type,element)
 
       const img_reply=document.createElement('img')
       img_reply.setAttribute('src','../images/icon-reply.svg')
