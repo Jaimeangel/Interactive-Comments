@@ -153,7 +153,7 @@ class Comment{
       .substring(1);
     }
 
-    NewReplySaveData(elmt,text){
+    NewReplySaveData(elmt,text,cnt){
       const new_reply={
         "id": this.randonId(),
         "parentId":elmt.parentId,
@@ -177,6 +177,7 @@ class Comment{
           break
         }
       }
+      cnt.remove()
     }
 
     ReplyCommentSection(e,type,elementData){
@@ -209,7 +210,7 @@ class Comment{
           btn_reply.classList.add('btnReply')
           const reply_btn=document.createElement('button')
           
-          reply_btn.onclick=()=>this.NewReplySaveData(elementData,comment_text)
+          reply_btn.onclick=()=>this.NewReplySaveData(elementData,comment_text,content)
 
           reply_btn.textContent=`REPLY`
           btn_reply.append(reply_btn)
