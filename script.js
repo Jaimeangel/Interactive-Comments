@@ -104,29 +104,7 @@ class Comment{
             }
             break
           }
-          
         }
-/*         this.data.comments.every(element=>{
-          if(element.id===parent_id){
-            element.replies.every(reply=>{
-              if(reply.id===id){
-                if(e.target.innerText==='+'){
-                  reply.score=reply.score+1
-                  counter.innerText=`${reply.score}`
-                }else if(e.target.innerText==='-'){
-                  if(reply.score>0){
-                    reply.score=reply.score-1
-                    counter.innerText=`${reply.score}`
-                  }
-                }
-                return false
-              }
-              return true;
-            })
-            return false;
-          }
-          return true;
-        }) */
       }else{
         const main_comments=this.data.comments;
         for (let i = 0; i < main_comments.length; i++) {
@@ -148,12 +126,37 @@ class Comment{
     }
     
     randonId(){
-      return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
+      return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     }
 
-    NewReplySaveData(elmt,text,cnt){
+    AddNodeReplyComment(nodo,id){
+      const comments=this.data.comments.find(elmt=>elmt.id===id).replies;
+      const last_reply=comments[comments.length-1];
+      const comment_componenet=this.CommentComponent(last_reply,'replies')
+      /* nodo.append(comment_componenet) */
+      nodo.insertAdjacentElement('afterend',comment_componenet)
+    }
+
+    NodeNewReplyComment(parent_id,id,type){
+      let nodo;
+      if(type==='replies'){
+        nodo=document.querySelector(`[data-id='${parent_id}'] .reply_content [data-id='${id}']`);
+        this.AddNodeReplyComment(nodo,parent_id);
+      }else{
+        nodo=document.querySelector(`[data-id='${id}'] .reply_content`);
+        if(nodo===null){
+          const item=parent_id-1;
+          nodo=document.querySelectorAll('.wrap').item(item)
+          const reply_content=document.createElement('div')
+          reply_content.classList.add('reply_content')
+          nodo.append(reply_content)
+          nodo=reply_content;
+        }
+        this.AddNodeReplyComment(nodo,id);
+      }
+    }
+
+    NewReplySaveData(elmt,text,cnt,type){
       const new_reply={
         "id": this.randonId(),
         "parentId":elmt.parentId,
@@ -178,6 +181,7 @@ class Comment{
         }
       }
       cnt.remove()
+      this.NodeNewReplyComment(elmt.parentId,elmt.id,type)
     }
 
     ReplyCommentSection(e,type,elementData){
@@ -210,7 +214,7 @@ class Comment{
           btn_reply.classList.add('btnReply')
           const reply_btn=document.createElement('button')
           
-          reply_btn.onclick=()=>this.NewReplySaveData(elementData,comment_text,content)
+          reply_btn.onclick=()=>this.NewReplySaveData(elementData,comment_text,content,type)
 
           reply_btn.textContent=`REPLY`
           btn_reply.append(reply_btn)
