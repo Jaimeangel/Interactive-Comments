@@ -146,9 +146,43 @@ class Comment{
         }
       }
     }
+    
+    randonId(){
+      return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+    }
 
-    ReplyComment(e,id,type,parent_id){
+    NewReplyComment(elmt,text){
+      const new_reply={
+        "id": this.randonId(),
+        "parentId":elmt.parentId,
+        "content":text.value,
+        "createdAt": new Date().toLocaleDateString(),
+        "score": 0,
+        "replyingTo": elmt.user.username,
+        "user": this.data.currentUser
+      }
+      const main_comments=this.data.comments;
+      for (let i = 0; i < main_comments.length; i++) {
+        const comment = main_comments[i];
+        let id;
+        if(elmt.parentId===undefined){
+          id=elmt.id
+        }else{
+          id=elmt.parentId
+        }
+        if(comment.id===id){
+          comment.replies.push(new_reply)
+          break
+        }
+      }
+    }
+
+    ReplyComment(e,type,elementData){
       let comments;
+      const parent_id=elementData.parentId;
+      const id=elementData.id;
       if(type==='replies'){
         comments=document.querySelectorAll(`[data-id='${parent_id}'] .reply_content .content`)
       }else{
@@ -174,6 +208,10 @@ class Comment{
           const btn_reply=document.createElement('div')
           btn_reply.classList.add('btnReply')
           const reply_btn=document.createElement('button')
+
+          const contenido_text=comment_text.value;
+          reply_btn.onclick=()=>this.NewReplyComment(elementData,comment_text)
+
           reply_btn.textContent=`REPLY`
           btn_reply.append(reply_btn)
 
@@ -207,10 +245,8 @@ class Comment{
       const user_comment=document.createElement('p')
       if(type==='replies'){
         user_comment.textContent+=`@${element.replyingTo} `
-        user_comment.textContent+=`${element.content}`
-      }else{
-        user_comment.textContent=`${element.content}`
       }
+      user_comment.textContent+=`${element.content}`
       comment.append(user_photo,user_name,user_date,user_comment)
       /* Count */
       const count=document.createElement('div')
@@ -236,7 +272,7 @@ class Comment{
       reply.classList.add('reply')
 
       const btn_reply=document.createElement('button')
-      btn_reply.onclick=(e)=>this.ReplyComment(e,element.id,type,element.parentId)
+      btn_reply.onclick=(e)=>this.ReplyComment(e,type,element)
 
       const img_reply=document.createElement('img')
       img_reply.setAttribute('src','../images/icon-reply.svg')
