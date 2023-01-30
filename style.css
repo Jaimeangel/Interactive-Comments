@@ -37,6 +37,7 @@ body{
     background-color: var(--White);
 }
 .reply_content{
+    width: 100%;
     border-left: 1px solid var(--Light_Grayish_Blue);
     padding-left: 1em;
 }
@@ -49,6 +50,7 @@ body{
     margin-bottom: 0.5em;
     color: var(--Grayish_Blue);
     font-weight: 400;
+    align-items: center;
 }
 .comment img{
     width: 0.1rem;
@@ -158,7 +160,6 @@ body{
         margin: auto;
     }
     .content{
-        width: 100%;
         position: relative;
         padding: 1em;
     }
