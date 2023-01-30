@@ -157,9 +157,15 @@ class Comment{
     }
 
     NewReplySaveData(elmt,text,cnt,type){
+      let parent;
+      if(type==='replies'){
+        parent=elmt.parentId;
+      }else{
+        parent=elmt.id;
+      }
       const new_reply={
         "id": this.randonId(),
-        "parentId":elmt.parentId,
+        "parentId":parent,
         "content":text.value,
         "createdAt": new Date().toLocaleDateString(),
         "score": 0,
