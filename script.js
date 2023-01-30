@@ -144,7 +144,7 @@ class Comment{
       let nodo;
       if(type==='replies'){
         nodo=document.querySelector(`[data-id='${parent_id}'] .reply_content [data-id='${id}']`);
-        this.AddNodeReplyComment(nodo,parent_id);
+        this.AddNodeReplyComment(nodo,parent_id,type);
       }else{
         nodo=document.querySelector(`[data-id='${id}'] .reply_content`);
         if(nodo===null){
