@@ -159,6 +159,10 @@ class Comment{
       }
     }
 
+    RemoveNodo(nodoRemove){
+      nodoRemove.remove();
+    }
+
     NewReplySaveData(elmt,text,cnt,type){
       let parent;
       if(type==='replies'){
@@ -189,7 +193,7 @@ class Comment{
           break
         }
       }
-      cnt.remove()
+      this.RemoveNodo(cnt)
       this.NodeNewReplyComment(elmt.parentId,elmt.id,type)
     }
 
@@ -226,7 +230,12 @@ class Comment{
           reply_btn.onclick=()=>this.NewReplySaveData(elementData,comment_text,content,type)
 
           reply_btn.textContent=`REPLY`
-          btn_reply.append(reply_btn)
+
+          const cancel_btn=document.createElement('button')
+          cancel_btn.onclick=()=>this.RemoveNodo(content)
+          cancel_btn.textContent=`CANCEL`
+
+          btn_reply.append(reply_btn,cancel_btn)
 
           content.append(comment,user_img,btn_reply)
           if(type==='replies'){

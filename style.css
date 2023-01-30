@@ -135,19 +135,22 @@ body{
     font-family: 'Rubik', sans-serif;
 }
 .content .currentUser{
-    flex: 1 1 50%;
+    flex: 1 1 20%;
 }
 .content .currentUser img{
     width: 2.5em;
 }
 .content .btnReply{
-    flex: 1 1 50%;
+    flex: 1 1 80%;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: flex-end;
 }
 .content .btnReply button{
     padding: 1em 1.5em;
+    width: 90px;
+    margin-left: 0.5em;
     border-radius: 0.5em;
     border: none;
     color: var(--White);
@@ -237,6 +240,7 @@ body{
     }
     .content .btnReply button{
         padding: 1.1em 26%;
+        width: 100%;
     }
     
 }
