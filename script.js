@@ -129,12 +129,15 @@ class Comment{
       return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     }
 
-    AddNodeReplyComment(nodo,id){
+    AddNodeReplyComment(nodo,id,type){
       const comments=this.data.comments.find(elmt=>elmt.id===id).replies;
       const last_reply=comments[comments.length-1];
       const comment_componenet=this.CommentComponent(last_reply,'replies')
-      /* nodo.append(comment_componenet) */
-      nodo.insertAdjacentElement('afterend',comment_componenet)
+      if(type==='replies'){
+        nodo.insertAdjacentElement('afterend',comment_componenet)
+      }else{
+        nodo.append(comment_componenet)
+      }
     }
 
     NodeNewReplyComment(parent_id,id,type){
@@ -152,7 +155,7 @@ class Comment{
           nodo.append(reply_content)
           nodo=reply_content;
         }
-        this.AddNodeReplyComment(nodo,id);
+        this.AddNodeReplyComment(nodo,id,type);
       }
     }
 
