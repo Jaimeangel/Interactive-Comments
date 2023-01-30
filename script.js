@@ -293,6 +293,7 @@ class Comment{
       const reply=document.createElement('div')
       reply.classList.add('reply')
 
+      /* Reply button reply */
       const btn_reply=document.createElement('button')
       btn_reply.onclick=(e)=>this.ReplyCommentSection(e,type,element)
 
@@ -301,7 +302,32 @@ class Comment{
       const text_reply=document.createElement('span')
       text_reply.textContent=`Reply`
       btn_reply.append(img_reply,text_reply)
-      reply.append(btn_reply)
+
+      /* Reply button delete*/
+      const btn_delete=document.createElement('button')
+      /* btn_delete.onclick=(e)=>this.ReplyCommentSection(e,type,element) */
+
+      const img_delete=document.createElement('img')
+      img_delete.setAttribute('src','../images/icon-delete.svg')
+      const text_delete=document.createElement('span')
+      text_delete.textContent=`Delete`
+      btn_delete.append(img_delete,text_delete)
+
+      /* Reply button edit */
+      const btn_edit=document.createElement('button')
+      /* btn_delete.onclick=(e)=>this.ReplyCommentSection(e,type,element) */
+
+      const img_edit=document.createElement('img')
+      img_edit.setAttribute('src','../images/icon-edit.svg')
+      const text_edit=document.createElement('span')
+      text_edit.textContent=`Edit`
+      btn_edit.append(img_edit,text_edit)
+
+      if(element.user.username===this.data.currentUser.username){
+        reply.append(btn_delete,btn_edit)
+      }else{
+        reply.append(btn_reply)
+      }
 
       content.append(comment,count,reply)
       return content;

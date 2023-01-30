@@ -73,7 +73,7 @@ body{
     word-break: break-all;
 }
 .content .count{
-    flex: 1 1 50%;
+    flex: 1 1 40%;
     display: flex;
 }
 .content .count button{
@@ -100,7 +100,7 @@ body{
     font-weight: 500;
 }
 .content .reply{
-    flex: 1 1 50%;
+    flex: 1 1 60%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -117,7 +117,7 @@ body{
     background: white;
 }
 .content .reply button>*{
-    margin-left: 0.7em;
+    margin-left: 0.5em;
 }
 .content .textReply{
     flex: 1 1 100%;
