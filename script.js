@@ -229,7 +229,7 @@ class Comment{
     }
 
     
-    SaveDataNewComment(elmt,text,cnt,type){
+    SaveDataNewCommentReply(elmt,text,cnt,type){
       let parent;
       if(type==='replies'){
         parent=elmt.parentId;
@@ -293,7 +293,7 @@ class Comment{
           btn_reply.classList.add('btnReply')
           const reply_btn=document.createElement('button')
           
-          reply_btn.onclick=()=>this.SaveDataNewComment(elementData,comment_text,content,type)
+          reply_btn.onclick=()=>this.SaveDataNewCommentReply(elementData,comment_text,content,type)
 
           reply_btn.textContent=`REPLY`
 
@@ -399,7 +399,7 @@ class Comment{
       return content;
     }
 
-    WrapCommentSection(element){
+    WrapCommentSection(element,node,type=null){
       const wrapComment=document.createElement('div')
         wrapComment.classList.add('wrap')
         wrapComment.setAttribute('data-id',`${element.id}`)
@@ -418,10 +418,26 @@ class Comment{
           wrapComment.append(wrap_reply)
         }
 
-
-        this.nodo.append(wrapComment)
+        if(type==='new'){
+          node.insertAdjacentElement('beforebegin',wrapComment)
+          return
+        }
+        node.append(wrapComment)
     }
 
+    SaveDataNewCommentMain(value,node){
+      const new_comment={
+        "id": this.randonId(),
+        "content": value,
+        "createdAt": new Date().toLocaleDateString(),
+        "score": 0,
+        "user": this.data.currentUser,
+        "replies": []
+      }
+      this.data.comments.push(new_comment)
+      this.WrapCommentSection(new_comment,node,'new');
+    }  
+  
     CreateNewMainComment(){
       const content=document.createElement('div')
       content.classList.add('content')
@@ -441,6 +457,7 @@ class Comment{
       const btn_send=document.createElement('div')
       btn_send.classList.add('btnReply')
       const send_btn=document.createElement('button')
+      send_btn.onclick=()=>this.SaveDataNewCommentMain(comment_text.value,content)
       
       send_btn.textContent=`SEND`
       btn_send.append(send_btn)
@@ -451,7 +468,7 @@ class Comment{
 
     MainComment(){
       this.data.comments.forEach(element=>{
-        this.WrapCommentSection(element)
+        this.WrapCommentSection(element,this.nodo)
       });
       this.CreateNewMainComment()
     }
