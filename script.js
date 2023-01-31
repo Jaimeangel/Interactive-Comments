@@ -129,7 +129,7 @@ class Comment{
       return Math.floor((1 + Math.random()) * 0x10000);
     }
 
-    AddNodeReplyComment(nodo,id,type){
+    AddContentNewComment(nodo,id,type){
       const comments=this.data.comments.find(elmt=>elmt.id===id).replies;
       const last_reply=comments[comments.length-1];
       const comment_componenet=this.CommentComponent(last_reply,'replies')
@@ -140,11 +140,11 @@ class Comment{
       }
     }
 
-    NodeNewReplyComment(parent_id,id,type){
+    FindNodeToInsertNewComment(parent_id,id,type){
       let nodo;
       if(type==='replies'){
         nodo=document.querySelector(`[data-id='${parent_id}'] .reply_content [data-id='${id}']`);
-        this.AddNodeReplyComment(nodo,parent_id,type);
+        this.AddContentNewComment(nodo,parent_id,type);
       }else{
         nodo=document.querySelector(`[data-id='${id}'] .reply_content`);
         if(nodo===null){
@@ -155,11 +155,11 @@ class Comment{
           nodo.append(reply_content)
           nodo=reply_content;
         }
-        this.AddNodeReplyComment(nodo,id,type);
+        this.AddContentNewComment(nodo,id,type);
       }
     }
 
-    RemoveDataById(id,parent_id){
+    RemoveDataNodo(id,parent_id){
       if(parent_id){
         const indexToDelete=this.data.comments.find(elmt=>elmt.id===parent_id).replies.findIndex(reply=>reply.id===id);
         this.data.comments.find(elmt=>elmt.id===parent_id).replies.splice(indexToDelete,1)
@@ -169,12 +169,12 @@ class Comment{
     RemoveNodo(nodoRemove,action=null,id,parent_id){
       nodoRemove.remove();
       if(action==='delete'){
-        this.RemoveDataById(id,parent_id)
+        this.RemoveDataNodo(id,parent_id)
       }
     }
 
     
-    NewReplySaveData(elmt,text,cnt,type){
+    SaveDataNewComment(elmt,text,cnt,type){
       let parent;
       if(type==='replies'){
         parent=elmt.parentId;
@@ -205,7 +205,7 @@ class Comment{
         }
       }
       this.RemoveNodo(cnt)
-      this.NodeNewReplyComment(elmt.parentId,elmt.id,type)
+      this.FindNodeToInsertNewComment(elmt.parentId,elmt.id,type)
     }
 
     ReplyCommentSection(e,type,elementData){
@@ -238,7 +238,7 @@ class Comment{
           btn_reply.classList.add('btnReply')
           const reply_btn=document.createElement('button')
           
-          reply_btn.onclick=()=>this.NewReplySaveData(elementData,comment_text,content,type)
+          reply_btn.onclick=()=>this.SaveDataNewComment(elementData,comment_text,content,type)
 
           reply_btn.textContent=`REPLY`
 
