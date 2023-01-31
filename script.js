@@ -159,7 +159,7 @@ class Comment{
       }
     }
 
-    UpdateData(ctn,id,parent_id){
+    UpdateData(ctn,id,parent_id,replyTo){
       /* Actualizando informacion */
       const nodo_comment=ctn.querySelector('.comment')
       console.log(typeof(ctn))
@@ -169,12 +169,14 @@ class Comment{
         .find(reply=>reply.id===id).content=msg;
 
       /* Exchange textarea nodo for tag p */
-      const textUpdate=document.createElement('p').textContent=msg;
+      const textUpdate=document.createElement('p');
+      textUpdate.textContent+=`@${replyTo} `
+      textUpdate.textContent+=msg;
       const nodeEdit=nodo_comment.querySelector('.textUpdate');
       const btnUpdate=nodo_comment.querySelector('.btnUpdate')
       nodeEdit.remove(),btnUpdate.remove()
       nodo_comment.append(textUpdate)
-      /*  */
+      /*Remove disabled class and atributte disabled button*/
       const btn_disabled=ctn.querySelectorAll('.reply button');
       btn_disabled.forEach(btn=>{
         btn.classList.toggle('disabled')
@@ -183,7 +185,7 @@ class Comment{
 
     }
 
-    EditCommentSection(ctn,id,parent_id){
+    EditCommentSection(ctn,id,parent_id,replyTo){
       const text_old=this.data.comments
         .find(elmt=>elmt.id===parent_id).replies
         .find(reply=>reply.id===id).content;
@@ -201,7 +203,7 @@ class Comment{
       update.classList.add('btnUpdate')
       const btn_update=document.createElement('button')
       btn_update.textContent=`UPDATE`
-      btn_update.onclick=()=>this.UpdateData(ctn,id,parent_id)
+      btn_update.onclick=()=>this.UpdateData(ctn,id,parent_id,replyTo)
       update.append(btn_update)
       nodo_comment.append(update)
       /* Disabled delete,edit buttons */
@@ -379,7 +381,7 @@ class Comment{
 
       /* Reply button edit */
       const btn_edit=document.createElement('button')
-      btn_edit.onclick=()=>this.EditCommentSection(content,element.id,element.parentId)
+      btn_edit.onclick=()=>this.EditCommentSection(content,element.id,element.parentId,element.replyingTo)
 
       const img_edit=document.createElement('img')
       img_edit.setAttribute('src','../images/icon-edit.svg')
