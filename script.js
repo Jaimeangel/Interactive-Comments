@@ -159,14 +159,21 @@ class Comment{
       }
     }
 
-    UpdateData(ctn,id,parent_id,replyTo){
+    UpdateData(ctn,id,parent_id,replyTo,type){
       /* Actualizando informacion */
       const nodo_comment=ctn.querySelector('.comment')
       console.log(typeof(ctn))
       const msg=nodo_comment.querySelector('.textUpdate').value;
-      this.data.comments
-        .find(elmt=>elmt.id===parent_id).replies
-        .find(reply=>reply.id===id).content=msg;
+
+      if(type==='replies'){
+        this.data.comments
+          .find(elmt=>elmt.id===parent_id).replies
+          .find(reply=>reply.id===id).content=msg;
+      }else{
+        this.data.comments
+        .find(elmt=>elmt.id===id).content=msg;
+      }
+
 
       /* Exchange textarea nodo for tag p */
       const textUpdate=document.createElement('p');
@@ -185,10 +192,16 @@ class Comment{
 
     }
 
-    EditCommentSection(ctn,id,parent_id,replyTo){
-      const text_old=this.data.comments
-        .find(elmt=>elmt.id===parent_id).replies
-        .find(reply=>reply.id===id).content;
+    EditCommentSection(ctn,id,parent_id,replyTo,type){
+      let text_old;
+      if(type==='replies'){
+        text_old=this.data.comments
+          .find(elmt=>elmt.id===parent_id).replies
+          .find(reply=>reply.id===id).content;
+      }else{
+        text_old=this.data.comments
+        .find(elmt=>elmt.id===id).content;
+      }
       /* Intercambianos un tag textarea por un tag p */
       const nodo_comment=ctn.querySelector('.comment')
       const nodo_comment_p=nodo_comment.querySelector('p')
@@ -381,7 +394,7 @@ class Comment{
 
       /* Reply button edit */
       const btn_edit=document.createElement('button')
-      btn_edit.onclick=()=>this.EditCommentSection(content,element.id,element.parentId,element.replyingTo)
+      btn_edit.onclick=()=>this.EditCommentSection(content,element.id,element.parentId,element.replyingTo,type)
 
       const img_edit=document.createElement('img')
       img_edit.setAttribute('src','../images/icon-edit.svg')
@@ -425,15 +438,20 @@ class Comment{
         node.append(wrapComment)
     }
 
-    SaveDataNewCommentMain(value,node){
+    SaveDataNewCommentMain(text,node){
+      const txt=text.value
+      if(text.value===''){
+        return
+      }
       const new_comment={
         "id": this.randonId(),
-        "content": value,
+        "content": txt,
         "createdAt": new Date().toLocaleDateString(),
         "score": 0,
         "user": this.data.currentUser,
         "replies": []
       }
+      text.value=''
       this.data.comments.push(new_comment)
       this.WrapCommentSection(new_comment,node,'new');
     }  
@@ -457,7 +475,7 @@ class Comment{
       const btn_send=document.createElement('div')
       btn_send.classList.add('btnReply')
       const send_btn=document.createElement('button')
-      send_btn.onclick=()=>this.SaveDataNewCommentMain(comment_text.value,content)
+      send_btn.onclick=()=>this.SaveDataNewCommentMain(comment_text,content)
       
       send_btn.textContent=`SEND`
       btn_send.append(send_btn)
