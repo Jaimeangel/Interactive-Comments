@@ -159,10 +159,21 @@ class Comment{
       }
     }
 
-    RemoveNodo(nodoRemove){
-      nodoRemove.remove();
+    RemoveDataById(id,parent_id){
+      if(parent_id){
+        const indexToDelete=this.data.comments.find(elmt=>elmt.id===parent_id).replies.findIndex(reply=>reply.id===id);
+        this.data.comments.find(elmt=>elmt.id===parent_id).replies.splice(indexToDelete,1)
+      }
     }
 
+    RemoveNodo(nodoRemove,action=null,id,parent_id){
+      nodoRemove.remove();
+      if(action==='delete'){
+        this.RemoveDataById(id,parent_id)
+      }
+    }
+
+    
     NewReplySaveData(elmt,text,cnt,type){
       let parent;
       if(type==='replies'){
@@ -305,7 +316,8 @@ class Comment{
 
       /* Reply button delete*/
       const btn_delete=document.createElement('button')
-      /* btn_delete.onclick=(e)=>this.ReplyCommentSection(e,type,element) */
+      btn_delete.onclick=()=>this.RemoveNodo(content,'delete',element.id,element.parentId)
+      /* btn_delete.onclick=()=>console.log('aqui se borra x2') */
 
       const img_delete=document.createElement('img')
       img_delete.setAttribute('src','../images/icon-delete.svg')
