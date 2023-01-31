@@ -159,6 +159,59 @@ class Comment{
       }
     }
 
+    UpdateData(ctn,id,parent_id){
+      /* Actualizando informacion */
+      const nodo_comment=ctn.querySelector('.comment')
+      console.log(typeof(ctn))
+      const msg=nodo_comment.querySelector('.textUpdate').value;
+      this.data.comments
+        .find(elmt=>elmt.id===parent_id).replies
+        .find(reply=>reply.id===id).content=msg;
+
+      /* Exchange textarea nodo for tag p */
+      const textUpdate=document.createElement('p').textContent=msg;
+      const nodeEdit=nodo_comment.querySelector('.textUpdate');
+      const btnUpdate=nodo_comment.querySelector('.btnUpdate')
+      nodeEdit.remove(),btnUpdate.remove()
+      nodo_comment.append(textUpdate)
+      /*  */
+      const btn_disabled=ctn.querySelectorAll('.reply button');
+      btn_disabled.forEach(btn=>{
+        btn.classList.toggle('disabled')
+        btn.removeAttribute('disabled')
+      })
+
+    }
+
+    EditCommentSection(ctn,id,parent_id){
+      const text_old=this.data.comments
+        .find(elmt=>elmt.id===parent_id).replies
+        .find(reply=>reply.id===id).content;
+      /* Intercambianos un tag textarea por un tag p */
+      const nodo_comment=ctn.querySelector('.comment')
+      const nodo_comment_p=nodo_comment.querySelector('p')
+      const nodo_textarea=document.createElement('textarea')
+      nodo_textarea.classList.add('textUpdate')
+      const insertedNode = nodo_comment.insertBefore(nodo_textarea, nodo_comment_p);
+      nodo_comment_p.remove()
+      /* Agregar contenido establecido en tag textarea */
+      nodo_textarea.value=text_old;
+      /* Add update button */
+      const update=document.createElement('div')
+      update.classList.add('btnUpdate')
+      const btn_update=document.createElement('button')
+      btn_update.textContent=`UPDATE`
+      btn_update.onclick=()=>this.UpdateData(ctn,id,parent_id)
+      update.append(btn_update)
+      nodo_comment.append(update)
+      /* Disabled delete,edit buttons */
+      const btn_disabled=ctn.querySelectorAll('.reply button');
+      btn_disabled.forEach(btn=>{
+        btn.classList.toggle('disabled')
+        btn.setAttribute('disabled',true)
+      })
+    }
+
     RemoveDataNodo(id,parent_id){
       if(parent_id){
         const indexToDelete=this.data.comments.find(elmt=>elmt.id===parent_id).replies.findIndex(reply=>reply.id===id);
@@ -208,17 +261,17 @@ class Comment{
       this.FindNodeToInsertNewComment(elmt.parentId,elmt.id,type)
     }
 
-    ReplyCommentSection(e,type,elementData){
-      let comments;
+    ReplyCommentSection(type,elementData){
+      let SpaceToInsertSectionReply;
       const parent_id=elementData.parentId;
       const id=elementData.id;
       if(type==='replies'){
-        comments=document.querySelectorAll(`[data-id='${parent_id}'] .reply_content .content`)
+        SpaceToInsertSectionReply=document.querySelectorAll(`[data-id='${parent_id}'] .reply_content .content`)
       }else{
-        comments=document.querySelectorAll('.wrap')
+        SpaceToInsertSectionReply=document.querySelectorAll('.wrap')
       }
-      for (let index = 0; index < comments.length; index++) {
-        const element = comments[index];
+      for (let index = 0; index < SpaceToInsertSectionReply.length; index++) {
+        const element = SpaceToInsertSectionReply[index];
         if(parseInt(element.dataset.id)===id){
           const content=document.createElement('div')
           content.classList.add('content')
@@ -306,7 +359,7 @@ class Comment{
 
       /* Reply button reply */
       const btn_reply=document.createElement('button')
-      btn_reply.onclick=(e)=>this.ReplyCommentSection(e,type,element)
+      btn_reply.onclick=(e)=>this.ReplyCommentSection(type,element)
 
       const img_reply=document.createElement('img')
       img_reply.setAttribute('src','../images/icon-reply.svg')
@@ -317,7 +370,6 @@ class Comment{
       /* Reply button delete*/
       const btn_delete=document.createElement('button')
       btn_delete.onclick=()=>this.RemoveNodo(content,'delete',element.id,element.parentId)
-      /* btn_delete.onclick=()=>console.log('aqui se borra x2') */
 
       const img_delete=document.createElement('img')
       img_delete.setAttribute('src','../images/icon-delete.svg')
@@ -327,7 +379,7 @@ class Comment{
 
       /* Reply button edit */
       const btn_edit=document.createElement('button')
-      /* btn_delete.onclick=(e)=>this.ReplyCommentSection(e,type,element) */
+      btn_edit.onclick=()=>this.EditCommentSection(content,element.id,element.parentId)
 
       const img_edit=document.createElement('img')
       img_edit.setAttribute('src','../images/icon-edit.svg')

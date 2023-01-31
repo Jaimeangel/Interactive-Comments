@@ -70,7 +70,27 @@ body{
     flex: 1 1 100%;
     margin:0.5em 0;
     font-size: 1.1rem;
-    word-break: break-all;
+    word-break: break-word;
+}
+.comment .textUpdate{
+    flex: 1 1 100%;
+    margin:0.5em 0;
+    font-size: 1.1rem;
+    word-break: break-word;
+}
+.comment .btnUpdate{
+    flex: 1 1 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.comment .btnUpdate button{
+    padding: 1em 1.5em;
+    width: 90px;
+    margin-left: 0.5em;
+    border-radius: 0.5em;
+    border: none;
+    color: var(--White);
+    background-color: var(--Moderate_Blue);
 }
 .content .count{
     flex: 1 1 35%;
@@ -123,7 +143,7 @@ body{
 .content .textReply{
     flex: 1 1 100%;
 }
-.content .textReply textarea{
+textarea{
     width: 100%;
     min-height: 6em;
     resize: none;
@@ -156,6 +176,9 @@ body{
     border: none;
     color: var(--White);
     background-color: var(--Moderate_Blue);
+}
+.disabled{
+    filter: blur(1px);
 }
 
 @media screen and (min-width:550px){
