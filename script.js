@@ -422,10 +422,38 @@ class Comment{
         this.nodo.append(wrapComment)
     }
 
+    CreateNewMainComment(){
+      const content=document.createElement('div')
+      content.classList.add('content')
+      content.classList.add('newComment')
+
+      const comment=document.createElement('div')
+      comment.classList.add('textReply')
+      const comment_text=document.createElement('textarea')
+      comment.append(comment_text)
+
+      const user_img=document.createElement('div')
+      user_img.classList.add('currentUser')
+      const img_user=document.createElement('img')
+      img_user.setAttribute('src',`${this.data.currentUser.image.png}`)
+      user_img.append(img_user)
+
+      const btn_send=document.createElement('div')
+      btn_send.classList.add('btnReply')
+      const send_btn=document.createElement('button')
+      
+      send_btn.textContent=`SEND`
+      btn_send.append(send_btn)
+
+      content.append(comment,user_img,btn_send)
+      this.nodo.append(content)
+    }
+
     MainComment(){
       this.data.comments.forEach(element=>{
         this.WrapCommentSection(element)
       });
+      this.CreateNewMainComment()
     }
 }
 

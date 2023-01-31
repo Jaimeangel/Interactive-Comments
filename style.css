@@ -186,6 +186,10 @@ textarea{
         max-width: 850px;
         margin: auto;
     }
+    .newComment{
+        max-width: 850px;
+        margin: auto;
+    }
     .content{
         position: relative;
         padding: 1em;
