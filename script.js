@@ -177,7 +177,9 @@ class Comment{
 
       /* Exchange textarea nodo for tag p */
       const textUpdate=document.createElement('p');
-      textUpdate.textContent+=`@${replyTo} `
+      if(type==='replies'){
+        textUpdate.textContent+=`@${replyTo} `
+      }
       textUpdate.textContent+=msg;
       const nodeEdit=nodo_comment.querySelector('.textUpdate');
       const btnUpdate=nodo_comment.querySelector('.btnUpdate')
