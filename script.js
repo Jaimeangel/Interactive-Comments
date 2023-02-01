@@ -391,9 +391,18 @@ class Comment{
       comment.classList.add('comment')
       const user_photo=document.createElement('img')
       user_photo.setAttribute('src',`${element.user.image.webp}`)
+
       const user_name=document.createElement('span')
       user_name.innerHTML=`${element.user.username}`
       user_name.setAttribute('id','user_name')
+
+      if(element.user.username===this.data.currentUser.username){
+        const confirm_user=document.createElement('span')
+        confirm_user.setAttribute('id','confirm_user')
+        confirm_user.innerHTML=`you`
+        user_name.append(confirm_user)
+      }
+
       const user_date=document.createElement('span')
       user_date.innerHTML=`${element.createdAt}`
       const user_comment=document.createElement('p')

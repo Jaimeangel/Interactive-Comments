@@ -57,18 +57,30 @@ button{
     align-items: center;
 }
 .comment img{
-    width: 0.1rem;
-    flex: 1 1 11%;
+    max-width: 33px;
+    /* flex: 1 1 0%; */
 }
 .comment span{
-    flex: 1 1 43%;
+    flex: 1 1 22%;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
 }
 #user_name{
     color: var(--Dark_Blue);
     font-weight: 700;
     padding-left: 0.5em;
+}
+#confirm_user{
+    background-color: var(--Moderate_Blue);
+    color:var(--White);
+    max-width: 50px;
+    display: flex;
+    justify-content: center;
+    border-radius: 3px;
+    padding: 0.3em 0.5em;
+    font-size: 0.8em;
+    margin-left: 0.5em;
 }
 .comment p{
     flex: 1 1 100%;
@@ -261,11 +273,12 @@ dialog::backdrop{
         flex: 1 1 85%;
     }
     .comment img{
-        max-width: 45px;
+        max-width: 40px;
     }
     .comment span{
        max-width: 120px;
        margin-left: 1em;
+       justify-content: center;
     }
     .comment p{
         font-size: 1.3rem;
@@ -326,6 +339,10 @@ dialog::backdrop{
     .content .btnReply button{
         padding: 1.1em 26%;
         width: 100%;
+    }
+    #confirm_user{
+        padding: 0.3em 0.8em;
+        font-size: 1rem;
     }
     
 }
