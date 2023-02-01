@@ -218,7 +218,7 @@ class Comment{
       update.classList.add('btnUpdate')
       const btn_update=document.createElement('button')
       btn_update.textContent=`UPDATE`
-      btn_update.onclick=()=>this.UpdateData(ctn,id,parent_id,replyTo)
+      btn_update.onclick=()=>this.UpdateData(ctn,id,parent_id,replyTo,type)
       update.append(btn_update)
       nodo_comment.append(update)
       /* Disabled delete,edit buttons */
@@ -233,14 +233,47 @@ class Comment{
       if(parent_id){
         const indexToDelete=this.data.comments.find(elmt=>elmt.id===parent_id).replies.findIndex(reply=>reply.id===id);
         this.data.comments.find(elmt=>elmt.id===parent_id).replies.splice(indexToDelete,1)
+      }else{
+        const indexToDelete=this.data.comments.findIndex(elmt=>elmt.id===id);
+        this.data.comments.splice(indexToDelete,1)
       }
     }
 
-    RemoveNodo(nodoRemove,action=null,id,parent_id){
+    RemoveNodo(nodoRemove,action=null,id,parent_id,modal=null){
       nodoRemove.remove();
       if(action==='delete'){
         this.RemoveDataNodo(id,parent_id)
       }
+      if(modal!==null){
+        modal.close()
+      }
+    }
+
+    showModal(content,type,id,parentId){
+      const modal=document.createElement('dialog')
+
+      const title=document.createElement('h3')
+      title.textContent=`Delete comment`
+
+      const text=document.createElement('p')
+      text.textContent=`Are you sure you want to delete this comment? This will remove the comment and cant't be undone.`
+
+      const btn_options=document.createElement('div')
+
+      const btn_cancel_modal=document.createElement('button')
+      btn_cancel_modal.textContent=`NO,CANCEL`
+      btn_cancel_modal.onclick=()=>modal.close()
+
+      const btn_delete_modal=document.createElement('button')
+      btn_delete_modal.textContent=`YES,DELETE`
+      btn_delete_modal.onclick=()=>this.RemoveNodo(content,type,id,parentId,modal)
+
+      btn_options.append(btn_cancel_modal,btn_delete_modal)
+      modal.append(title,text,btn_options)
+
+      document.body.append(modal)
+
+      modal.showModal()
     }
 
     
@@ -386,7 +419,7 @@ class Comment{
 
       /* Reply button delete*/
       const btn_delete=document.createElement('button')
-      btn_delete.onclick=()=>this.RemoveNodo(content,'delete',element.id,element.parentId)
+      btn_delete.onclick=()=>this.showModal(content,'delete',element.id,element.parentId)
 
       const img_delete=document.createElement('img')
       img_delete.setAttribute('src','../images/icon-delete.svg')
