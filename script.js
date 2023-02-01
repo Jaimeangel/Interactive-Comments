@@ -124,6 +124,15 @@ class Comment{
         }
       }
     }
+
+    NoValueAlert(text){
+      text.classList.toggle('noValue')
+      text.value='Insert message'
+      setTimeout(()=>{
+        text.classList.toggle('noValue')
+        text.value=''
+      }, 2300);
+    }
     
     randonId(){
       return Math.floor((1 + Math.random()) * 0x10000);
@@ -284,6 +293,7 @@ class Comment{
     
     SaveDataNewCommentReply(elmt,text,cnt,type){
       if(text.value===''){
+        this.NoValueAlert(text)
         return
       }
       let parent;
@@ -484,6 +494,7 @@ class Comment{
     SaveDataNewCommentMain(text,node){
       const txt=text.value
       if(text.value===''){
+        this.NoValueAlert(text)
         return
       }
       const new_comment={

@@ -7,11 +7,12 @@
     --Moderate_Blue: hsl(238, 40%, 52%);
     --Soft_Red: hsl(358, 79%, 66%);
     --Light_Grayish_Blue: hsl(239, 57%, 85%);
-    --Pale_Red: hsl(357, 100%, 86%);
+    --Pale_Red: hsl(0, 100%, 97%);
 
     --Dark_Blue: hsl(212, 24%, 26%);
     --Grayish_Blue: hsl(211, 10%, 45%);
     --Light_Gray: hsl(223, 19%, 93%);
+    --Light_Gray_Shadow: hsl(220, 3%, 83%);
     --Very_Light_Gray: hsl(228, 33%, 97%);
     --White: hsl(0, 0%, 100%);
 }
@@ -106,6 +107,9 @@ button{
     font-size: 1.2rem;
     padding: 0.2em 0.7em;
 }
+.content .count button:active{
+    box-shadow: inset 0px 0px 40px var(--Light_Gray_Shadow);
+}
 .content .count button:first-child{
     border-top-left-radius: 0.5em;
     border-bottom-left-radius: 0.5em;
@@ -156,6 +160,11 @@ textarea{
     color: var(--Grayish_Blue);
     font-weight: 400;
     font-family: 'Rubik', sans-serif;
+}
+.noValue{
+    transition: all 1.7s;
+    transition-timing-function:ease-in-out;
+    background-color: var(--Pale_Red);
 }
 .content .currentUser{
     flex: 1 1 20%;
