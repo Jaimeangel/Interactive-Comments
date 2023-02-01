@@ -283,6 +283,9 @@ class Comment{
 
     
     SaveDataNewCommentReply(elmt,text,cnt,type){
+      if(text.value===''){
+        return
+      }
       let parent;
       if(type==='replies'){
         parent=elmt.parentId;
