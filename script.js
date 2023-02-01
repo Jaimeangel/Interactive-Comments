@@ -246,11 +246,13 @@ class Comment{
       }
       if(modal!==null){
         modal.close()
+        modal.remove()
       }
     }
 
     showModal(content,type,id,parentId){
       const modal=document.createElement('dialog')
+      modal.classList.add('modal')
 
       const title=document.createElement('h3')
       title.textContent=`Delete comment`
@@ -259,13 +261,16 @@ class Comment{
       text.textContent=`Are you sure you want to delete this comment? This will remove the comment and cant't be undone.`
 
       const btn_options=document.createElement('div')
+      btn_options.classList.add('options')
 
       const btn_cancel_modal=document.createElement('button')
       btn_cancel_modal.textContent=`NO,CANCEL`
+      btn_cancel_modal.classList.add('cancel')
       btn_cancel_modal.onclick=()=>modal.close()
 
       const btn_delete_modal=document.createElement('button')
       btn_delete_modal.textContent=`YES,DELETE`
+      btn_delete_modal.classList.add('delete')
       btn_delete_modal.onclick=()=>this.RemoveNodo(content,type,id,parentId,modal)
 
       btn_options.append(btn_cancel_modal,btn_delete_modal)
